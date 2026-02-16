@@ -1,0 +1,13 @@
+label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+label > div {
+
+}
+
+label:has(input[readonly]) > div {
+  opacity: 0;
+}
