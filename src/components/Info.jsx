@@ -13,7 +13,7 @@ function InfoField({ label }) {
     }
 
     return (
-        <label>
+        <label className="infoLabel">
             <div>{ label }</div>
             <input
                 type={types[label]}
@@ -26,4 +26,45 @@ function InfoField({ label }) {
     )
 }
 
-export { InfoField }
+function BaseField({ type }) {
+    const [input, setInput] = useState();
+    const { status } = useContext(SectionContext); 
+    return (
+        <input
+            type="text"
+            onChange={(e) => setInput(e.target.value)}
+            value={input}
+            readOnly={status === "live"}
+            placeholder={type}
+        ></input>
+    )
+}
+
+function AcademicField() {
+    return (
+        <div className="academicField">
+            <BaseField type="Start Year - End Year"/>
+            <BaseField type="Field of Study"/>
+            <BaseField type="Institution"/>
+        </div>
+    )
+}
+
+function AddButton({ type }) {
+    function returnComponent() {
+        if (type === "academic") {
+            return <AcademicField/>
+        } else if (type === "career") {
+            return ""
+        } else {
+            return ""
+        }
+    }
+    return (
+        <button onClick={returnComponent}>
+            +
+        </button>
+    )
+}
+ 
+export { InfoField, AcademicField, AddButton }

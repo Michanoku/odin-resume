@@ -23,7 +23,7 @@ function Picture() {
         imageData = <img src={image.url} width={image.width} height={image.height}></img>;
     }
     return (
-        <label className="image-upload">
+        <label className="imageUpload">
             <div className="imageContainer">
                 {imageData}
             </div>

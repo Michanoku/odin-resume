@@ -15,12 +15,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+
 #root {
   width: 100vw;
   padding-inline: 1rem;
 }
 
-@media screen and (min-width=992px) {
+@media screen and (min-width: 992px) {
   #root {
     padding-inline: 10rem;
   }
@@ -28,13 +35,15 @@
 
 header {
   text-align: center;
+  padding: 1rem;
   font-size: 2rem;
   line-height: 1.1;
+  margin-bottom: 1rem;
 }
 
 main {
- 
   display: grid;
+  gap: 1rem;
   grid-template-columns: 1fr 2fr;
 }
 

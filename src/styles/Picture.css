@@ -1,6 +1,12 @@
+.imageUpload {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
 .imageContainer {
-  width: 100%;
-  padding: 0.5rem;
+  width: 80%;
+  border: 0.5rem solid white;
   aspect-ratio: 1/1;
   background-color: grey;
   position: relative;
