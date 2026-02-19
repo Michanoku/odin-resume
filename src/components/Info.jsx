@@ -14,8 +14,9 @@ function InfoField({ label }) {
 
     return (
         <label className="infoLabel">
-            <div>{ label }</div>
+            <h2>{ label }</h2>
             <input
+                className="userEntry"
                 type={types[label]}
                 onChange={(e) => setInput(e.target.value)}
                 value={input}
@@ -30,13 +31,32 @@ function BaseField({ type }) {
     const [input, setInput] = useState();
     const { status } = useContext(SectionContext); 
     return (
-        <input
+        <input 
+            className="userEntry"
             type="text"
             onChange={(e) => setInput(e.target.value)}
             value={input}
             readOnly={status === "live"}
             placeholder={type}
         ></input>
+    )
+}
+
+function TextField() {
+    const { status } = useContext(SectionContext); 
+    return (
+        <textarea
+            className="userEntry"
+            type="text"
+            rows="3"
+            style={{ resize: "none", overflow: "hidden" }}
+            onInput={(e) => {
+                e.target.style.height = "auto";
+                e.target.style.height = e.target.scrollHeight + "px";
+            }}
+            readOnly={status === "live"}
+            placeholder="Describe what you did."
+        ></textarea>
     )
 }
 
@@ -50,21 +70,15 @@ function AcademicField() {
     )
 }
 
-function AddButton({ type }) {
-    function returnComponent() {
-        if (type === "academic") {
-            return <AcademicField/>
-        } else if (type === "career") {
-            return ""
-        } else {
-            return ""
-        }
-    }
+function CareerField() {
     return (
-        <button onClick={returnComponent}>
-            +
-        </button>
+        <div className="careerField">
+            <BaseField type="Start Year - End Year"/>
+            <BaseField type="Position"/>
+            <BaseField type="Organization"/>    
+            <TextField />
+        </div>
     )
 }
  
-export { InfoField, AcademicField, AddButton }
+export { InfoField, AcademicField, CareerField }

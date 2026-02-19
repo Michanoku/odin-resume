@@ -1,6 +1,5 @@
 import './App.css';
 import { Section } from './components/Section.jsx';
-import { InfoField } from './components/Info.jsx';
 import { Picture } from './components/Picture.jsx';
 
 function App() {
@@ -11,16 +10,15 @@ function App() {
     ]
   return (
     <>
-    <header>Your CV</header>
+    <header><h1>Your CV</h1></header>
     <main className="layout">
-        <div>
+        <div className="infoPanel">
             <Picture />
             <Section type="info" initial={initialInfo}/>
         </div>
         <div>
             <Section type="Career" initial={[{id: crypto.randomUUID()}]}/>
             <Section type="Academic" initial={[{id: crypto.randomUUID()}]}/>
-            <Section type="Skills" initial={[{id: crypto.randomUUID()}]}/>
         </div>
     </main>
     <footer></footer>

@@ -8,15 +8,15 @@
   font-weight: 600;
 }
 
-.infoLabel > input,
-.academicField > input {
+.userEntry {
   box-sizing: border-box;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   padding: 0;
   margin: 0;
 }
 
-.infoLabel > input[readonly] {
+.userEntry[readonly] {
+  resize: none;
   border: none;
   outline: none;
   background: transparent;
@@ -27,10 +27,18 @@
   cursor: default;
   caret-color: transparent;
   appearance: none;
+  padding: 0.125rem;
 }
 
-.academicField {
-  display: flex;
+.academicField, .careerField {
+  display: grid;
   gap: 0.5rem;
-  justify-content: space-between;
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 0.25rem;
+}
+
+textarea {
+  grid-row: 2;
+  grid-column-start: 2;
+  grid-column-end: 4;
 }

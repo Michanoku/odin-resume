@@ -1,7 +1,7 @@
 import '../styles/Section.css';
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import { SectionContext } from './SectionContext.jsx';
-import { InfoField, AcademicField } from './Info.jsx';
+import { InfoField, AcademicField, CareerField } from './Info.jsx';
 
 function EditButton({ status, toggleStatus }) {
     return (
@@ -9,6 +9,20 @@ function EditButton({ status, toggleStatus }) {
             {status === "edit" ? "Save" : "Edit"}
         </button>
     )
+}
+
+function AddButton({status, add}) {
+    if (status === "live") return null;
+    return <button className="addButton" onClick={add}>+</button>;
+}
+
+function RemoveButton({status, remove}) {
+    if (status === "live") return null;
+    return <button className="removeButton"  onClick={remove}>Remove</button>
+}
+
+function SectionTitle({title}) {
+    return <h2 className="sectionTitle">{title}</h2>;
 }
 
 function Section({ type, initial }) {
@@ -27,38 +41,42 @@ function Section({ type, initial }) {
         ]);
     }
 
-    let addButton;
-    let sectionTitle;
-    if (type !== "info") {
-        addButton = <button className="addButton" onClick={addField}>+</button>;
-        sectionTitle = <div className="sectionTitle">{type}</div>;
+    function removeField(id) {
+        setFields(fields =>
+            fields.filter(field => field.id !== id)
+        );
     }
+
+    const fieldComponents = {
+        info: InfoField,
+        Academic: AcademicField,
+        Career: CareerField
+    };
 
     return (
         <SectionContext.Provider value={{ status }}>
-            {sectionTitle}
+            {type !== "info" && (
+                <SectionTitle title={type}/>
+            )}
             <section>
                 {fields.map(field => {
-                    if (type === "info") {
-                        return (
-                            <InfoField key={field.id} label={field.label}></InfoField>
-                        )
-                    } else if (type === "Academic") {
-                        return (
-                            <AcademicField key={field.id}></AcademicField>
-                        )
-                    } else if (type === "Career") {
-                        return (
-                            <AcademicField key={field.id}></AcademicField>
-                        )
-                    } else if (type === "Skills") {
-                        return (
-                            <AcademicField key={field.id}></AcademicField>
-                        )
-                    }
+                    const FieldComponent = fieldComponents[type];
+
+                    return type === "info" ? (
+                        <FieldComponent key={field.id} label={field.label} />
+                    ) : (
+                        <Fragment key={field.id}>
+                            <FieldComponent />
+                            <RemoveButton status={status} remove={() => removeField(field.id)} />
+                        </Fragment>
+                    );
                 })}
-                {addButton}
-                <EditButton status={status} toggleStatus={toggleStatus} />
+                <div className="sectionButtons">
+                    {type !== "info" && (
+                        <AddButton status={status} add={addField}/>
+                    )}
+                    <EditButton status={status} toggleStatus={toggleStatus} />
+                </div>
             </section>
         </SectionContext.Provider>
     )
