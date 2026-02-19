@@ -1,4 +1,4 @@
-import './App.css';
+import './styles/Index.css';
 import { Section } from './components/Section.jsx';
 import { Picture } from './components/Picture.jsx';
 
