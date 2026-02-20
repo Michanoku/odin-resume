@@ -1,14 +1,12 @@
 // This file has the user input field components and their parent components
 
 import "../styles/Info.css";
-import { useState, useContext } from "react";
-import { SectionContext } from "./SectionContext.jsx";
+import { useState} from "react";
 
 // This field is for the general info, like name, phone and email
-function InfoField({ label }) {
+function InfoField({ label, status }) {
   // The state is used for input and status is used to check if editing or not
   const [input, setInput] = useState("");
-  const { status } = useContext(SectionContext);
   const types = {
     Name: "text",
     Phone: "tel",
@@ -30,10 +28,9 @@ function InfoField({ label }) {
 }
 
 // This is the base field used in academic or career components
-function BaseField({ type }) {
+function BaseField({ type, status }) {
   // The state is used for input and status is used to check if editing or not
   const [input, setInput] = useState();
-  const { status } = useContext(SectionContext);
   return (
     <input
       className="userEntry"
@@ -47,9 +44,8 @@ function BaseField({ type }) {
 }
 
 // This field is used for larger text input about job descriptions
-function TextField() {
+function TextField({ status }) {
   // The status is used to check if editing or not
-  const { status } = useContext(SectionContext);
   return (
     <textarea
       className="userEntry"
@@ -69,24 +65,24 @@ function TextField() {
 }
 
 // The academic field component. Contains three basefields
-function AcademicField() {
+function AcademicField({status}) {
   return (
     <div className="academicField">
-      <BaseField type="Start Year - End Year" />
-      <BaseField type="Field of Study" />
-      <BaseField type="Institution" />
+      <BaseField type="Start Year - End Year" status={status} />
+      <BaseField type="Field of Study" status={status} />
+      <BaseField type="Institution" status={status} />
     </div>
   );
 }
 
 // The career field component. Contains three basefields and a textfield
-function CareerField() {
+function CareerField({status}) {
   return (
     <div className="careerField">
-      <BaseField type="Start Year - End Year" />
-      <BaseField type="Position" />
-      <BaseField type="Organization" />
-      <TextField />
+      <BaseField type="Start Year - End Year" status={status} />
+      <BaseField type="Position" status={status} />
+      <BaseField type="Organization" status={status} />
+      <TextField status={status} />
     </div>
   );
 }

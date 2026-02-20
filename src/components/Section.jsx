@@ -2,7 +2,6 @@
 
 import "../styles/Section.css";
 import { useState, Fragment } from "react";
-import { SectionContext } from "./SectionContext.jsx";
 import { InfoField, AcademicField, CareerField } from "./Info.jsx";
 
 // This button can start or stop editing mode on each section
@@ -72,13 +71,13 @@ function Section({ type, initial }) {
 
   {/* Depending on section type, two different layouts are needed */}
   return type === "info" ? (
-    <SectionContext.Provider value={{ status }}>
+    <>
       {/* Only one component and button is needed */}
       <section>
         {fields.map((field) => {
           return (
             <Fragment key={field.id}>
-              <FieldComponent key={field.id} label={field.label} />
+              <FieldComponent label={field.label} status={status}/>
             </Fragment>
           );
         })}
@@ -86,16 +85,16 @@ function Section({ type, initial }) {
           <EditButton status={status} toggleStatus={toggleStatus} />
         </div>
       </section>
-    </SectionContext.Provider>
+    </>
   ) : (
-    <SectionContext.Provider value={{ status }}>
+    <>
       {/* Title, component, remove button, add and edit are needed */}
       <section>
         <SectionTitle title={type} />
         {fields.map((field) => {
           return (
             <Fragment key={field.id}>
-              <FieldComponent />
+              <FieldComponent status={status} />
               <RemoveButton
                 status={status}
                 remove={() => removeField(field.id)}
@@ -108,7 +107,7 @@ function Section({ type, initial }) {
           <EditButton status={status} toggleStatus={toggleStatus} />
         </div>
       </section>
-    </SectionContext.Provider>
+    </>
   );
 }
 
