@@ -1,41 +1,41 @@
-import '../styles/Picture.css';
-import { useState } from 'react';
+// This file contains the picture component used for the users picture 
+
+import "../styles/Picture.css";
+import { useState } from "react";
 
 function Picture() {
-    const [image, setImage] = useState(null);
+  const [image, setImage] = useState(null);
 
-    function handleImageChange(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-        const imageUrl = URL.createObjectURL(file);
-        const img = new Image();
-        img.onload = () => {
-            setImage({
-                url: imageUrl,
-                width: img.width,
-                height: img.height,
-            });
-        };
-        img.src = imageUrl;
-    }
-    let imageData;
-    if (image !== null) {
-        imageData = <img src={image.url} width={image.width} height={image.height}></img>;
-    }
-    return (
-        <label className="imageUpload">
-            <div className="imageContainer">
-                {imageData}
-            </div>
-
-            <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                hidden
-            />
-        </label>
-    )
+  // If a file is submitted, create the image and set it as the new image
+  function handleImageChange(e) {
+    const file = e.target.files[0];
+    // If there is no file, return
+    if (!file) return;
+    // Create the file from the url
+    const imageUrl = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      setImage({
+        url: imageUrl,
+        width: img.width,
+        height: img.height,
+      });
+    };
+    img.src = imageUrl;
+  }
+  let imageData;
+  // If there is an image, save the imagedata
+  if (image !== null) {
+    imageData = (
+      <img src={image.url} width={image.width} height={image.height}></img>
+    );
+  }
+  return (
+    <label className="imageUpload">
+      <div className="imageContainer">{imageData}</div>
+      <input type="file" accept="image/*" onChange={handleImageChange} hidden />
+    </label>
+  );
 }
 
-export { Picture }
+export { Picture };

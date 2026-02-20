@@ -16,7 +16,6 @@
 }
 
 .userEntry[readonly] {
-  resize: none;
   border: none;
   outline: none;
   background: transparent;
